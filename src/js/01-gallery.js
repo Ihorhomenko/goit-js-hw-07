@@ -44,9 +44,13 @@ function modalLigthBasic (url) {
   const instance = basicLightbox.create(`
     <img src="${url}">
 `)
-
-instance.show()
-// instance.close(() => console.log('lightbox not visible anymore'))
+  instance.show(() => gallery.addEventListener('keydown',onGalleryKeydown))
+  function onGalleryKeydown (evt) {
+    if(evt.code === 'Escape') {
+      instance.close()
+    }
+  }  
 }
+
 
 
