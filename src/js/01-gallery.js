@@ -1,21 +1,22 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 // preventDefault()
 
 // console.log(galleryItems);
 
-const galleryCards = createGalleryCards (galleryItems);
+const galleryCards = createGalleryCards(galleryItems);
 
-const gallery = document.querySelector('.gallery');
+const gallery = document.querySelector(".gallery");
 
-gallery.insertAdjacentHTML('afterbegin', galleryCards);
+gallery.insertAdjacentHTML("afterbegin", galleryCards);
 
-gallery.addEventListener('click', onGetUrlLaggeImgClick);
+gallery.addEventListener("click", onGetUrlLaggeImgClick);
 
-
-function createGalleryCards (gallery) {
-    return gallery.map(({preview, original, description}) => `<div class="gallery__item">
+function createGalleryCards(gallery) {
+  return gallery
+    .map(
+      ({ preview, original, description }) => `<div class="gallery__item">
     <a class="gallery__link" href="${original}">
       <img
         class="gallery__image"
@@ -24,15 +25,17 @@ function createGalleryCards (gallery) {
         alt="${description}"
       />
     </a>
-  </div>`).join('')
+  </div>`
+    )
+    .join("");
 }
 
-function onGetUrlLaggeImgClick (evt) {
+function onGetUrlLaggeImgClick(evt) {
   evt.preventDefault();
 
-  const galleryElLink = evt.target;
-  if(!galleryElLink) {
-    return
+  const galleryElLink = evt.target.classList.contains("gallery__image");
+  if (!galleryElLink) {
+    return;
   }
 
   const galleryLargeImgUrl = evt.target.parentNode.href;
@@ -40,17 +43,14 @@ function onGetUrlLaggeImgClick (evt) {
   modalLigthBasic(galleryLargeImgUrl);
 }
 
-function modalLigthBasic (url) {
+function modalLigthBasic(url) {
   const instance = basicLightbox.create(`
     <img src="${url}">
-`)
-  instance.show(() => gallery.addEventListener('keydown',onGalleryKeydown))
-  function onGalleryKeydown (evt) {
-    if(evt.code === 'Escape') {
-      instance.close()
+`);
+  instance.show(() => gallery.addEventListener("keydown", onGalleryKeydown));
+  function onGalleryKeydown(evt) {
+    if (evt.code === "Escape") {
+      instance.close();
     }
-  }  
+  }
 }
-
-
-
