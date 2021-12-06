@@ -21,3 +21,9 @@ function createGalleryCards(gallery) {
     )
     .join("");
 }
+
+let gallerySimpleLightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionPosition: "bottom",
+  captionDelay: 250,
+});
